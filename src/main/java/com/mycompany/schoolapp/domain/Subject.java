@@ -22,6 +22,42 @@ public class Subject implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    private String name;
+    private String code;
+    
+    private Subject(Builder builder)
+    {
+        id = builder.id;
+        name = builder.name;
+        code = builder.code;
+        
+    }
+    
+    public static class Builder
+    {
+        private Long id;
+        private String name;
+        private String code;
+        
+        public Builder(String name,String code)
+        {
+            this.name = name;
+            this.code = code;
+        }
+        
+        public Builder id(Long value)
+        {
+            this.id = value;
+            return this;
+        }
+        
+        public Subject build()
+        {
+            return new Subject(this);
+        }
+    }
+    
+    
 
     public Long getId() {
         return id;

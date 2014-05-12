@@ -45,13 +45,17 @@ public class Person implements Serializable {
     @Embedded
     private MedicalRecord medRecord;
     
-    @OneToOne
+    @OneToMany
+    @JoinColumn(name = "person_id")
     private List<TeachingClass> classs;
     
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "person_id")
     private List<Subject> subject;
     
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "person_id")
+    private Account account;
     
     private  Person(Builder builder){
         id = builder.id;
@@ -62,13 +66,14 @@ public class Person implements Serializable {
         medRecord = builder.medRecord;
         classs = builder.classs;
         subject = builder.subject;
+        account = builder.account;
         
         
         
           
     }
     
-    private static class Builder{
+    public static class Builder{
     
         private Long id;
         private String name;
@@ -79,6 +84,7 @@ public class Person implements Serializable {
         private MedicalRecord medRecord;
         private List<TeachingClass> classs;
         private List<Subject> subject;
+        private Account account;
                 
         
         public Builder id(Long value) {
@@ -113,13 +119,19 @@ public class Person implements Serializable {
         
         
 
-        public Builder accounts(List<TeachingClass> value) {
+        public Builder teachingClass(List<TeachingClass> value) {
             classs = value;
             return this;
         }
 
         public Builder clubs(List<Subject> value) {
             subject = value;
+            return this;
+        }
+        
+        public Builder account(Account value)
+        {
+            account = value;
             return this;
         }
         public Builder person(Person person){
@@ -131,6 +143,8 @@ public class Person implements Serializable {
             classs = person.getClasss();
             subject = person.getSubject();
             contact = person.getContact();
+            account = person.getAccount();
+            
             return this;
             
         }
@@ -175,6 +189,10 @@ public class Person implements Serializable {
 
     public List<Subject> getSubject() {
         return subject;
+    }
+
+    public Account getAccount() {
+        return account;
     }
     
 

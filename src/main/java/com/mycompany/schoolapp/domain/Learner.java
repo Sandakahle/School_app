@@ -22,7 +22,9 @@ public class Learner implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
+    private String learnerId;
+    
+    
     public Long getId() {
         return id;
     }
